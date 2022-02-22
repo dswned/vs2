@@ -1,6 +1,6 @@
 # vs2
 
-pipe vapoursynth scripts
+pipe vapoursynth/avisynth scripts
 
 ## Dependencies
 
@@ -10,6 +10,6 @@ pipe vapoursynth scripts
 ## Building
 
 ```
-cmake -S <path-to-source> -B <path-to-build> -DCMAKE_BUILD_TYPE=Release -DINCLUDE_PATH= -DLIB_PATH=
+cmake -S <path-to-source> -B <path-to-build> -DCMAKE_BUILD_TYPE=Release -DINCLUDE_PATH= -DLIBRARY_PATH=
 cmake --build <path-to-build> --target install
 ```

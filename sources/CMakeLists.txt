@@ -1,15 +1,19 @@
-add_executable(vs2 vs2.cpp ${PROJECT_BUILD_DIR}/config.h)
+configure_file(config.h.in ${CMAKE_BINARY_DIR}/generated/config.h)
 
-set_property(TARGET vs2 PROPERTY CXX_STANDARD 17)
+add_executable(vs2 vs2.cxx ${CMAKE_BINARY_DIR}/generated/config.h)
+
+set_property(TARGET vs2 PROPERTY CXX_STANDARD 20)
+
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
  set_target_properties(vs2 PROPERTIES COMPILE_FLAGS "/wd4996")
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
  set_target_properties(vs2 PROPERTIES COMPILE_FLAGS "-Wno-deprecated-declarations -Wno-logical-op-parentheses")
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_BUILD_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_BUILD_DIR} ${CMAKE_BINARY_DIR}/generated)
 
 check_include_files(getopt.h HAVE_GETOPT_H)
+
 if(NOT HAVE_GETOPT_H)
  target_sources(vs2 PRIVATE getopt.c getopt.h)
  if(MSVC)
